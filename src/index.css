@@ -1,96 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* AnnaSetu — Kerala-inspired traditional design system.
+   Banana-leaf green, ivory, gold, deep maroon, terracotta.
+   All colors HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Surfaces */
+    --background: 42 38% 96%;          /* warm ivory */
+    --foreground: 0 35% 18%;           /* deep maroon ink */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 40 45% 98%;
+    --card-foreground: 0 35% 18%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 40 45% 98%;
+    --popover-foreground: 0 35% 18%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Brand */
+    --primary: 145 55% 22%;            /* deep banana-leaf green */
+    --primary-foreground: 42 50% 96%;
+    --primary-glow: 130 45% 38%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 38 65% 88%;           /* soft cream */
+    --secondary-foreground: 0 35% 18%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 38 30% 90%;
+    --muted-foreground: 25 15% 38%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 38 75% 52%;              /* deep gold */
+    --accent-foreground: 0 35% 15%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --maroon: 0 55% 32%;               /* deep maroon */
+    --maroon-foreground: 42 50% 96%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --terracotta: 18 60% 48%;
+    --terracotta-foreground: 42 50% 96%;
 
-    --radius: 0.5rem;
+    --destructive: 0 70% 42%;
+    --destructive-foreground: 42 50% 96%;
+
+    --border: 38 35% 80%;
+    --input: 38 35% 85%;
+    --ring: 145 55% 22%;
+
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-leaf: linear-gradient(135deg, hsl(145 60% 18%), hsl(130 45% 30%));
+    --gradient-gold: linear-gradient(135deg, hsl(38 75% 55%), hsl(30 70% 45%));
+    --gradient-ivory: linear-gradient(180deg, hsl(42 50% 97%), hsl(38 40% 92%));
+    --gradient-maroon-gold: linear-gradient(135deg, hsl(0 55% 28%), hsl(38 70% 50%));
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -6px hsl(0 35% 18% / 0.12);
+    --shadow-elegant: 0 18px 50px -20px hsl(145 55% 18% / 0.35);
+    --shadow-gold: 0 8px 30px -10px hsl(38 75% 50% / 0.45);
+
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: 145 30% 8%;
+    --foreground: 42 50% 94%;
+    --card: 145 30% 10%;
+    --card-foreground: 42 50% 94%;
+    --popover: 145 30% 10%;
+    --popover-foreground: 42 50% 94%;
+    --primary: 130 45% 50%;
+    --primary-foreground: 145 40% 10%;
+    --secondary: 145 20% 18%;
+    --secondary-foreground: 42 50% 94%;
+    --muted: 145 20% 16%;
+    --muted-foreground: 42 20% 70%;
+    --accent: 38 75% 55%;
+    --accent-foreground: 145 40% 10%;
+    --destructive: 0 70% 42%;
+    --destructive-foreground: 42 50% 94%;
+    --border: 145 20% 20%;
+    --input: 145 20% 20%;
+    --ring: 130 45% 50%;
   }
 }
 
@@ -101,5 +103,92 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer utilities {
+  .gradient-leaf { background: var(--gradient-leaf); }
+  .gradient-gold { background: var(--gradient-gold); }
+  .gradient-ivory { background: var(--gradient-ivory); }
+  .gradient-maroon-gold { background: var(--gradient-maroon-gold); }
+  .shadow-soft { box-shadow: var(--shadow-soft); }
+  .shadow-elegant { box-shadow: var(--shadow-elegant); }
+  .shadow-gold { box-shadow: var(--shadow-gold); }
+  .transition-smooth { transition: var(--transition-smooth); }
+
+  .text-maroon { color: hsl(var(--maroon)); }
+  .bg-maroon { background-color: hsl(var(--maroon)); }
+  .text-terracotta { color: hsl(var(--terracotta)); }
+  .bg-terracotta { background-color: hsl(var(--terracotta)); }
+
+  /* Decorative ornament divider */
+  .ornament-divider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .ornament-divider::before,
+  .ornament-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--accent) / 0.6), transparent);
+  }
+
+  .kerala-card {
+    background: var(--gradient-ivory);
+    border: 1px solid hsl(var(--accent) / 0.25);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+    position: relative;
+  }
+  .kerala-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(var(--accent) / 0.5), transparent 50%, hsl(var(--maroon) / 0.3));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .pulse-glow {
+    animation: pulseGlow 2.4s ease-in-out infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 hsl(var(--accent) / 0.5); }
+    50% { box-shadow: 0 0 0 14px hsl(var(--accent) / 0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-up { animation: fadeUp 0.7s ease-out both; }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .text-shimmer-gold {
+    background: linear-gradient(90deg, hsl(38 70% 45%), hsl(45 90% 65%), hsl(38 70% 45%));
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 4s linear infinite;
   }
 }
