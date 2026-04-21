@@ -3,6 +3,7 @@ import { AnnaSetuLogo } from "@/components/AnnaSetuLogo";
 import { Ornament } from "@/components/Ornament";
 import keralaMotif from "@/assets/kerala-motif.png";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const Hero = () => (
   <section className="relative overflow-hidden gradient-ivory">
@@ -34,8 +35,8 @@ export const Hero = () => (
           <a href="#how" className="hover:text-primary transition-smooth">How it works</a>
           <a href="#impact" className="hover:text-primary transition-smooth">Impact</a>
           <a href="#partners" className="hover:text-primary transition-smooth">Partners</a>
-          <Button variant="outline" size="sm" className="border-maroon/40 text-maroon hover:bg-maroon hover:text-maroon-foreground">
-            Sign in
+          <Button asChild variant="outline" size="sm" className="border-maroon/40 text-maroon hover:bg-maroon hover:text-maroon-foreground">
+            <Link to="/app">Open app</Link>
           </Button>
         </div>
       </nav>
@@ -59,12 +60,14 @@ export const Hero = () => (
           </p>
 
           <div className="flex flex-wrap items-center gap-4">
-            <Button size="lg" variant="hero" className="group">
-              Donate surplus food
-              <ArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-smooth" />
+            <Button asChild size="lg" variant="hero" className="group">
+              <Link to="/app">
+                Try the live prototype
+                <ArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-smooth" />
+              </Link>
             </Button>
-            <Button size="lg" variant="ghost-gold">
-              I'm an NGO partner
+            <Button asChild size="lg" variant="ghost-gold">
+              <Link to="/app">I'm an NGO partner</Link>
             </Button>
           </div>
 
