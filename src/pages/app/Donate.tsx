@@ -10,9 +10,6 @@ import { Camera, Sparkles } from "lucide-react";
 
 const Donate = () => {
   const navigate = useNavigate();
-  const user = getUser();
-  if (!user) { navigate("/app/login", { replace: true }); return null; }
-
   const [foodName, setFoodName] = useState("Sambar Sadhya");
   const [foodType, setFoodType] = useState<"veg" | "non-veg" | "mixed">("veg");
   const [servings, setServings] = useState(40);
@@ -24,6 +21,8 @@ const Donate = () => {
   const [address, setAddress] = useState("MG Road, Kochi, Kerala");
   const [notes, setNotes] = useState("");
   const [aiTried, setAiTried] = useState(false);
+  const user = getUser();
+  if (!user) { navigate("/app/login", { replace: true }); return null; }
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
