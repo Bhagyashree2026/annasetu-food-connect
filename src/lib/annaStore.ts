@@ -212,7 +212,107 @@ export function clearAllData() {
   localStorage.removeItem(KEY_USER);
   localStorage.removeItem(KEY_DONATIONS);
   localStorage.removeItem(KEY_NOTIFS);
+  localStorage.removeItem(KEY_POSTS);
   window.dispatchEvent(new Event("annasetu:change"));
+}
+
+// ---------- community posts ----------
+const SEED_POSTS: CommunityPost[] = [
+  {
+    id: "p-seed-1",
+    at: Date.now() - 1000 * 60 * 60 * 4,
+    authorName: "Snehalaya Trust",
+    authorOrg: "Snehalaya Trust · NGO",
+    authorRole: "ngo",
+    caption:
+      "Today our volunteers served 240 hot meals at the Kaloor shelter, rescued from a wedding hall surplus. Grateful to AnnaSetu donors for keeping food out of waste bins.",
+    hashtags: ["#FoodRescue", "#Kerala", "#AnnaSetu", "#ZeroHunger"],
+    location: "Kaloor, Kochi",
+    meals: 240,
+    likes: 18,
+    likedByMe: false,
+    comments: [
+      { id: "c1", at: Date.now() - 1000 * 60 * 60 * 3, author: "Akshaya Patra", text: "Wonderful effort 🙏" },
+    ],
+  },
+  {
+    id: "p-seed-2",
+    at: Date.now() - 1000 * 60 * 60 * 26,
+    authorName: "Hotel Saravana",
+    authorOrg: "Hotel Saravana Bhavan · Donor",
+    authorRole: "restaurant",
+    caption:
+      "We've donated surplus lunch thalis every Friday for 6 weeks straight. A small commitment, a real difference. Join us and post your weekly pledge.",
+    hashtags: ["#WeeklyPledge", "#SurplusToService", "#Kochi"],
+    location: "Edappally, Kochi",
+    meals: 95,
+    likes: 31,
+    likedByMe: true,
+    comments: [],
+  },
+  {
+    id: "p-seed-3",
+    at: Date.now() - 1000 * 60 * 60 * 50,
+    authorName: "Karunya Volunteers",
+    authorOrg: "Karunya Trust · NGO",
+    authorRole: "ngo",
+    caption:
+      "Monsoon relief drive: distributed 60 dinner packs to families displaced near Vyttila underpass. Looking for donors with vegetarian surplus tonight.",
+    hashtags: ["#MonsoonRelief", "#Vyttila", "#NeedDonors"],
+    location: "Vyttila, Kochi",
+    meals: 60,
+    likes: 12,
+    likedByMe: false,
+    comments: [],
+  },
+];
+
+export function getPosts(): CommunityPost[] {
+  const stored = read<CommunityPost[] | null>(KEY_POSTS, null);
+  if (stored && stored.length) return [...stored].sort((a, b) => b.at - a.at);
+  // first run: seed
+  write(KEY_POSTS, SEED_POSTS);
+  return [...SEED_POSTS].sort((a, b) => b.at - a.at);
+}
+
+export function createPost(input: Omit<CommunityPost, "id" | "at" | "likes" | "likedByMe" | "comments">) {
+  const all = read<CommunityPost[]>(KEY_POSTS, SEED_POSTS);
+  const post: CommunityPost = {
+    ...input,
+    id: newId(),
+    at: Date.now(),
+    likes: 0,
+    likedByMe: false,
+    comments: [],
+  };
+  all.unshift(post);
+  write(KEY_POSTS, all);
+  pushNotification({
+    title: "New community update",
+    body: `${post.authorName} shared an activity.`,
+    forRole: "all",
+  });
+  return post;
+}
+
+export function togglePostLike(id: string) {
+  const all = read<CommunityPost[]>(KEY_POSTS, SEED_POSTS);
+  const idx = all.findIndex(p => p.id === id);
+  if (idx === -1) return;
+  const liked = !all[idx].likedByMe;
+  all[idx] = { ...all[idx], likedByMe: liked, likes: Math.max(0, all[idx].likes + (liked ? 1 : -1)) };
+  write(KEY_POSTS, all);
+}
+
+export function addPostComment(id: string, author: string, text: string) {
+  const all = read<CommunityPost[]>(KEY_POSTS, SEED_POSTS);
+  const idx = all.findIndex(p => p.id === id);
+  if (idx === -1) return;
+  all[idx] = {
+    ...all[idx],
+    comments: [...all[idx].comments, { id: newId(), at: Date.now(), author, text }],
+  };
+  write(KEY_POSTS, all);
 }
 
 // ---------- impact ----------
