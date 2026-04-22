@@ -56,6 +56,22 @@ export interface Notification {
 const KEY_USER = "annasetu.user";
 const KEY_DONATIONS = "annasetu.donations";
 const KEY_NOTIFS = "annasetu.notifications";
+const KEY_POSTS = "annasetu.posts";
+
+export interface CommunityPost {
+  id: string;
+  at: number;
+  authorName: string;
+  authorOrg: string;
+  authorRole: Role;
+  caption: string;
+  hashtags: string[];
+  location?: string; // "Kaloor, Kochi"
+  meals?: number;
+  likes: number;
+  likedByMe: boolean;
+  comments: { id: string; at: number; author: string; text: string }[];
+}
 
 export const SEED_NGOS: Ngo[] = [
   { id: "ngo-1", name: "Snehalaya Trust", malayalam: "സ്നേഹാലയ", distanceKm: 1.2, capacity: 120, rating: 4.9, verified: true, area: "Kaloor" },
