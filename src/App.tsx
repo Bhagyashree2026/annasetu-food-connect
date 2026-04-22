@@ -19,6 +19,7 @@ import Notifications from "./pages/app/Notifications.tsx";
 import Impact from "./pages/app/Impact.tsx";
 import Profile from "./pages/app/Profile.tsx";
 import Admin from "./pages/app/Admin.tsx";
+import Community from "./pages/app/Community.tsx";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +46,7 @@ const App = () => (
           <Route path="/app/impact" element={<Impact />} />
           <Route path="/app/profile" element={<Profile />} />
           <Route path="/app/admin" element={<Admin />} />
+          <Route path="/app/community" element={<Community />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

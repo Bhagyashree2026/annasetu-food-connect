@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Bell, User, Package, ArrowLeft } from "lucide-react";
+import { Home, Bell, User, Package, ArrowLeft, Users } from "lucide-react";
 import { AnnaSetuLogo } from "@/components/AnnaSetuLogo";
 import { getUser, getNotifications, useAnnaStore } from "@/lib/annaStore";
 
@@ -23,6 +23,7 @@ export const PhoneFrame = ({ children, title, subtitle, showBack, hideTabs, hide
   const tabs = [
     { to: "/app/home", label: "Home", icon: Home },
     { to: "/app/donations", label: "Activity", icon: Package },
+    { to: "/app/community", label: "Community", icon: Users },
     { to: "/app/notifications", label: "Alerts", icon: Bell, badge: unread },
     { to: "/app/profile", label: "Profile", icon: User },
   ];
