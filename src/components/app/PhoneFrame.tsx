@@ -70,7 +70,7 @@ export const PhoneFrame = ({ children, title, subtitle, showBack, hideTabs, hide
 
       {!hideTabs && user && (
         <nav className="fixed bottom-0 inset-x-0 z-30 bg-card/95 backdrop-blur border-t border-accent/25">
-          <div className="max-w-md mx-auto px-2 py-2 grid grid-cols-4">
+          <div className="max-w-md mx-auto px-2 py-2 grid grid-cols-5">
             {tabs.map(t => {
               const active = loc.pathname.startsWith(t.to);
               const Icon = t.icon;
