@@ -18,6 +18,7 @@ import Donations from "./pages/app/Donations.tsx";
 import Notifications from "./pages/app/Notifications.tsx";
 import Impact from "./pages/app/Impact.tsx";
 import Profile from "./pages/app/Profile.tsx";
+import Admin from "./pages/app/Admin.tsx";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,7 @@ const App = () => (
           <Route path="/app/notifications" element={<Notifications />} />
           <Route path="/app/impact" element={<Impact />} />
           <Route path="/app/profile" element={<Profile />} />
+          <Route path="/app/admin" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
