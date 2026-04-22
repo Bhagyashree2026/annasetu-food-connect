@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Bell, User, Package, ArrowLeft } from "lucide-react";
+import { Home, Bell, User, Package, ArrowLeft, Users } from "lucide-react";
 import { AnnaSetuLogo } from "@/components/AnnaSetuLogo";
 import { getUser, getNotifications, useAnnaStore } from "@/lib/annaStore";
 
@@ -23,6 +23,7 @@ export const PhoneFrame = ({ children, title, subtitle, showBack, hideTabs, hide
   const tabs = [
     { to: "/app/home", label: "Home", icon: Home },
     { to: "/app/donations", label: "Activity", icon: Package },
+    { to: "/app/community", label: "Community", icon: Users },
     { to: "/app/notifications", label: "Alerts", icon: Bell, badge: unread },
     { to: "/app/profile", label: "Profile", icon: User },
   ];
@@ -69,7 +70,7 @@ export const PhoneFrame = ({ children, title, subtitle, showBack, hideTabs, hide
 
       {!hideTabs && user && (
         <nav className="fixed bottom-0 inset-x-0 z-30 bg-card/95 backdrop-blur border-t border-accent/25">
-          <div className="max-w-md mx-auto px-2 py-2 grid grid-cols-4">
+          <div className="max-w-md mx-auto px-2 py-2 grid grid-cols-5">
             {tabs.map(t => {
               const active = loc.pathname.startsWith(t.to);
               const Icon = t.icon;
