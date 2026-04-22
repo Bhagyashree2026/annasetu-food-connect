@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
 import { Button } from "@/components/ui/button";
 import { clearAllData, getUser, setUser, Role } from "@/lib/annaStore";
-import { ChevronRight, LogOut, ShieldCheck, Languages, Bell, Repeat, RefreshCw } from "lucide-react";
+import { ChevronRight, LogOut, ShieldCheck, Languages, Bell, Repeat, RefreshCw, ShieldAlert } from "lucide-react";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -32,6 +32,7 @@ const Profile = () => {
         <Row icon={<Repeat className="w-4 h-4" />} label="Switch role" onClick={() => navigate("/app/role")} />
         <Row icon={<Bell className="w-4 h-4" />} label="Notifications" onClick={() => navigate("/app/notifications")} />
         <Row icon={<Languages className="w-4 h-4" />} label="Language" sub="English · മലയാളം" />
+        <Row icon={<ShieldAlert className="w-4 h-4" />} label="Admin · Verification" sub="Approve NGOs & restaurants" onClick={() => navigate("/app/admin")} />
       </div>
 
       <div className="kerala-card divide-y divide-accent/15 mb-4">
