@@ -22,10 +22,11 @@ import {
 const Community = () => {
   const navigate = useNavigate();
   useAnnaStore();
+  const [composerOpen, setComposerOpen] = useState(false);
+
   const user = getUser();
   if (!user) { navigate("/app/login", { replace: true }); return null; }
 
-  const [composerOpen, setComposerOpen] = useState(false);
   const posts = getPosts();
 
   return (
