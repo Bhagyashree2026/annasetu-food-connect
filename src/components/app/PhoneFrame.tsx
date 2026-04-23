@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Home, Bell, User, Package, ArrowLeft, Users } from "lucide-react";
 import { AnnaSetuLogo } from "@/components/AnnaSetuLogo";
 import { getUser, getNotifications, useAnnaStore } from "@/lib/annaStore";
+import { useT } from "@/lib/i18n";
+import { LanguageSwitcher } from "@/components/app/LanguageSwitcher";
 
 interface Props {
   children: ReactNode;
@@ -15,17 +17,18 @@ interface Props {
 
 export const PhoneFrame = ({ children, title, subtitle, showBack, hideTabs, hideHeader }: Props) => {
   useAnnaStore();
+  const { t } = useT();
   const navigate = useNavigate();
   const loc = useLocation();
   const user = getUser();
   const unread = getNotifications().filter(n => !n.read && (n.forRole === "all" || n.forRole === user?.role)).length;
 
   const tabs = [
-    { to: "/app/home", label: "Home", icon: Home },
-    { to: "/app/donations", label: "Activity", icon: Package },
-    { to: "/app/community", label: "Community", icon: Users },
-    { to: "/app/notifications", label: "Alerts", icon: Bell, badge: unread },
-    { to: "/app/profile", label: "Profile", icon: User },
+    { to: "/app/home", label: t("tab.home"), icon: Home },
+    { to: "/app/donations", label: t("tab.activity"), icon: Package },
+    { to: "/app/community", label: t("tab.community"), icon: Users },
+    { to: "/app/notifications", label: t("tab.alerts"), icon: Bell, badge: unread },
+    { to: "/app/profile", label: t("tab.profile"), icon: User },
   ];
 
   return (
@@ -48,11 +51,12 @@ export const PhoneFrame = ({ children, title, subtitle, showBack, hideTabs, hide
               <h1 className="font-display text-lg leading-tight text-maroon truncate">{title ?? "AnnaSetu"}</h1>
               {subtitle && <p className="text-[10px] uppercase tracking-widest text-muted-foreground truncate">{subtitle}</p>}
             </div>
+            <LanguageSwitcher />
             {!showBack && (
               <button
                 onClick={() => navigate("/app/notifications")}
                 className="relative p-2 rounded-full hover:bg-accent/15 text-maroon"
-                aria-label="Notifications"
+                aria-label={t("common.notifications")}
               >
                 <Bell className="w-5 h-5" />
                 {unread > 0 && (
