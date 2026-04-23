@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Bell, User, Package, ArrowLeft, Users } from "lucide-react";
+import { Home, Bell, User, Package, ArrowLeft, Users, Search } from "lucide-react";
 import { AnnaSetuLogo } from "@/components/AnnaSetuLogo";
 import { getUser, getNotifications, useAnnaStore } from "@/lib/annaStore";
 import { useT } from "@/lib/i18n";
@@ -51,6 +51,13 @@ export const PhoneFrame = ({ children, title, subtitle, showBack, hideTabs, hide
               <h1 className="font-display text-lg leading-tight text-maroon truncate">{title ?? "AnnaSetu"}</h1>
               {subtitle && <p className="text-[10px] uppercase tracking-widest text-muted-foreground truncate">{subtitle}</p>}
             </div>
+            <button
+              onClick={() => navigate("/app/search")}
+              className="p-2 rounded-full hover:bg-accent/15 text-maroon"
+              aria-label="Search"
+            >
+              <Search className="w-5 h-5" />
+            </button>
             <LanguageSwitcher />
             {!showBack && (
               <button

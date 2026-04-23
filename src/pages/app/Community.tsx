@@ -191,6 +191,7 @@ const PostCard = ({
   post: ReturnType<typeof getPosts>[number];
   currentUserName: string;
 }) => {
+  const navigate = useNavigate();
   const [showComments, setShowComments] = useState(false);
   const [comment, setComment] = useState("");
 
@@ -200,6 +201,7 @@ const PostCard = ({
     post.authorRole === "restaurant" ? "Donor" : "Volunteer";
 
   const time = relativeTime(post.at);
+  const profileSlug = post.authorName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
   const submitComment = () => {
     if (comment.trim().length < 1) return;
@@ -210,13 +212,20 @@ const PostCard = ({
   return (
     <article className="kerala-card p-4 animate-fade-up">
       <header className="flex items-start gap-3 mb-2.5">
-        <div className="w-10 h-10 rounded-full gradient-gold flex items-center justify-center text-maroon font-display text-sm shadow-gold">
+        <button
+          onClick={() => navigate(`/app/profile/${profileSlug}`)}
+          className="w-10 h-10 rounded-full gradient-gold flex items-center justify-center text-maroon font-display text-sm shadow-gold shrink-0 hover:scale-105 transition-smooth"
+          aria-label={`View ${post.authorName}'s profile`}
+        >
           {initials || "AS"}
-        </div>
-        <div className="flex-1 min-w-0">
+        </button>
+        <button
+          onClick={() => navigate(`/app/profile/${profileSlug}`)}
+          className="flex-1 min-w-0 text-left hover:opacity-80 transition-smooth"
+        >
           <h4 className="font-display text-base text-maroon leading-tight truncate">{post.authorName}</h4>
           <p className="text-[11px] text-muted-foreground truncate">{post.authorOrg}</p>
-        </div>
+        </button>
         <div className="text-right shrink-0">
           <span className="inline-block text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary font-semibold mb-1">
             {roleLabel}
