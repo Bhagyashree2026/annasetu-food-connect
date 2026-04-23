@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
+import { LiveTrackMap } from "@/components/app/LiveTrackMap";
 import { Button } from "@/components/ui/button";
 import { getDonation, STATUS_LABEL, STATUS_STEP, DonationStatus, getUser } from "@/lib/annaStore";
 import { Check, Clock, MapPin, Phone, ShieldCheck } from "lucide-react";
@@ -37,6 +38,18 @@ const Track = () => {
         <p className="text-xs text-foreground/75 flex items-center gap-1 mt-2"><MapPin className="w-3 h-3" />{d.address}</p>
         <p className="text-xs text-foreground/75 flex items-center gap-1"><Clock className="w-3 h-3" />Pickup by {d.pickupBy}</p>
       </div>
+
+      {/* Live tracking map (Zepto-style) — visible while driver is en route */}
+      {(d.status === "assigned" || d.status === "picked_up") && d.driverName && (
+        <div className="mb-4 animate-fade-up">
+          <LiveTrackMap
+            origin={d.address}
+            destination={d.ngoName ?? "NGO partner"}
+            driverName={d.driverName}
+            etaMin={d.status === "picked_up" ? 6 : 9}
+          />
+        </div>
+      )}
 
       {/* Stepper */}
       <ol className="kerala-card p-4 mb-4">

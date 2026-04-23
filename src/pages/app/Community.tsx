@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PhoneFrame } from "@/components/app/PhoneFrame";
-import { MapPreview } from "@/components/app/MapPreview";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
@@ -16,7 +15,7 @@ import {
 } from "@/lib/annaStore";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  Heart, MessageCircle, MapPin, Sparkles, Send, Plus, X, Loader2, Users,
+  Heart, MessageCircle, Sparkles, Send, Plus, X, Loader2, Users,
 } from "lucide-react";
 
 const Community = () => {
@@ -75,7 +74,6 @@ const Composer = ({ onClose }: { onClose: () => void }) => {
   const [idea, setIdea] = useState("");
   const [caption, setCaption] = useState("");
   const [hashtags, setHashtags] = useState<string[]>([]);
-  const [location, setLocation] = useState("");
   const [meals, setMeals] = useState<string>("");
   const [aiLoading, setAiLoading] = useState(false);
 
@@ -114,7 +112,6 @@ const Composer = ({ onClose }: { onClose: () => void }) => {
       authorRole: user.role,
       caption: finalCaption,
       hashtags,
-      location: location.trim() || undefined,
       meals: meals ? Number(meals) : undefined,
     });
     toast.success("Posted to community feed");
@@ -174,22 +171,10 @@ const Composer = ({ onClose }: { onClose: () => void }) => {
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-2 mb-3">
-        <div>
-          <label className="text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Location</label>
-          <Input value={location} onChange={e => setLocation(e.target.value)} placeholder="Kaloor, Kochi" className="mt-1" />
-        </div>
-        <div>
-          <label className="text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Meals</label>
-          <Input type="number" value={meals} onChange={e => setMeals(e.target.value)} placeholder="e.g. 80" className="mt-1" />
-        </div>
+      <div className="mb-3">
+        <label className="text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Meals served (optional)</label>
+        <Input type="number" value={meals} onChange={e => setMeals(e.target.value)} placeholder="e.g. 80" className="mt-1" />
       </div>
-
-      {location.trim().length > 2 && (
-        <div className="mb-3">
-          <MapPreview query={location} height={120} />
-        </div>
-      )}
 
       <Button variant="hero" className="w-full" onClick={submit}>
         <Send className="w-4 h-4" /> Post to community
@@ -252,22 +237,11 @@ const PostCard = ({
         </div>
       )}
 
-      {(post.location || post.meals) && (
-        <div className="flex items-center gap-3 text-[11px] text-muted-foreground mb-3">
-          {post.location && (
-            <span className="inline-flex items-center gap-1"><MapPin className="w-3 h-3 text-terracotta" />{post.location}</span>
-          )}
-          {post.meals !== undefined && (
-            <span className="inline-flex items-center gap-1 text-primary font-semibold">
-              {post.meals} meals
-            </span>
-          )}
-        </div>
-      )}
-
-      {post.location && (
-        <div className="mb-3">
-          <MapPreview query={post.location} height={130} />
+      {post.meals !== undefined && (
+        <div className="flex items-center gap-3 text-[11px] mb-3">
+          <span className="inline-flex items-center gap-1 text-primary font-semibold">
+            {post.meals} meals served
+          </span>
         </div>
       )}
 
